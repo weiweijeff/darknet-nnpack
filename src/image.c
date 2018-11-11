@@ -809,7 +809,8 @@ void letterbox_image_into(image im, int w, int h, image boxed)
     free_image(resized);
 }
 
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 struct resize_image_params {
 	image im;
 	image resized;
@@ -1372,7 +1373,8 @@ void test_resize(char *filename)
 #endif
 }
 
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 struct load_image_params {
 	image im;
 	unsigned char *data;
@@ -1450,7 +1452,8 @@ image load_image(char *filename, int w, int h, int c)
     return out;
 }
 
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 image load_image_thread(char *filename, int w, int h, int c, pthreadpool_t threadpool)
 {
 	return load_image_stb_thread(filename, c, threadpool);

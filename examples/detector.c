@@ -588,7 +588,8 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
             if(!input) return;
             strtok(input, "\n");
 		}
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 		image im = load_image_thread(input, 0, 0, net->c, net->threadpool);
 		image sized = letterbox_image_thread(im, net->w, net->h, net->threadpool);
 #else

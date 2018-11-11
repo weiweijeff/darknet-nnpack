@@ -76,13 +76,14 @@ void resize_maxpool_layer(maxpool_layer *l, int w, int h)
     #endif
 }
 
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 struct maxpool_params {
 	const maxpool_layer *l;
 	network *net;
 };
 
-void maxpool_thread(struct maxpool_params *params, size_t b, size_t k)
+void maxpool_thread(struct maxpool_params *params, uint32_t b, uint32_t k)
 {
 	int i, j, m, n;
 	int w_offset = -params->l->pad;
@@ -117,7 +118,8 @@ void maxpool_thread(struct maxpool_params *params, size_t b, size_t k)
 
 void forward_maxpool_layer(const maxpool_layer l, network net)
 {
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 	struct maxpool_params params = { &l, &net };
 	pthreadpool_compute_2d(net.threadpool, (pthreadpool_function_2d_t)maxpool_thread,
 		&params, l.batch, l.c);

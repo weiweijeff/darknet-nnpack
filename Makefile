@@ -2,7 +2,7 @@ GPU=0
 CUDNN=0
 OPENCV=0
 NNPACK=1
-ARM_NEON=0
+ARM_NEON=1
 OPENMP=0
 DEBUG=0
 
@@ -94,7 +94,7 @@ $(ALIB): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(SLIB): $(OBJS)
-	$(CC) $(CFLAGS) -shared $^ -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) -shared $^ -o $@
 
 $(OBJDIR)%.o: %.cpp $(DEPS)
 	$(CPP) $(COMMON) $(CFLAGS) -c $< -o $@

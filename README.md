@@ -42,14 +42,16 @@ make
 The weight files can be downloaded from the [YOLO homepage](https://pjreddie.com/darknet/yolo/).
 ```
 YOLOv2
-./darknet detector test cfg/coco.data cfg/yolo.cfg yolo.weights data/person.jpg
-Tiny-YOLO
-./darknet detector test cfg/voc.data cfg/tiny-yolo-voc.cfg tiny-yolo-voc.weights data/person.jpg
+./darknet detector test cfg/coco.data cfg/yolov2.cfg yolov2.weights data/person.jpg
+YOLOv2-tiny
+./darknet detector test cfg/voc.data cfg/yolov2-tiny-voc.cfg yolov2-tiny-voc.weights data/person.jpg
+YOLOv3-tiny
+./darknet detector test cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights data/person.jpg
 ```
 ## Result
 Model | Build Options | Prediction Time (seconds)
 :-:|:-:|:-:
 YOLOv2 | NNPACK=1,ARM_NEON=1 | 8.2
 YOLOv2 | NNPACK=0,ARM_NEON=0 | 156
-Tiny-YOLO | NNPACK=1,ARM_NEON=1 | 1.3
-Tiny-YOLO | NNPACK=0,ARM_NEON=0 | 38
+YOLOv2-tiny | NNPACK=1,ARM_NEON=1 | 1.3
+YOLOv2-tiny | NNPACK=0,ARM_NEON=0 | 38

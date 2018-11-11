@@ -105,7 +105,8 @@ void activate_array(float *x, const int n, const ACTIVATION a)
     }
 }
 
-#ifdef NNPACK
+//#ifdef NNPACK
+#if 0
 struct activate_params {
 	float *x;
 	int n;
