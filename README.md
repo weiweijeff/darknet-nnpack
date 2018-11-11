@@ -20,9 +20,9 @@ Install clang
 ```
 sudo apt-get install clang
 ```
-Install [NNPACK-darknet](https://github.com/thomaspark-pkj/NNPACK-darknet.git)
+Install [NNPACK-darknet](https://github.com/digitalbrain79/NNPACK-darknet.git)
 ```
-git clone https://github.com/thomaspark-pkj/NNPACK-darknet.git
+git clone https://github.com/digitalbrain79/NNPACK-darknet.git
 cd NNPACK-darknet
 confu setup
 python ./configure.py --backend auto
@@ -33,7 +33,7 @@ sudo cp deps/pthreadpool/include/pthreadpool.h /usr/include/
 ```
 Build darknet-nnpack
 ```
-git clone https://github.com/thomaspark-pkj/darknet-nnpack.git
+git clone https://github.com/digitalbrain79/darknet-nnpack.git
 cd darknet-nnpack
 make
 ```
