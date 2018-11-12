@@ -132,8 +132,7 @@ void resize_batchnorm_layer(layer *layer, int w, int h)
     fprintf(stderr, "Not implemented\n");
 }
 
-//#ifdef NNPACK
-#if 0
+#ifdef NNPACK
 struct normalize_params {
 	float *x;
 	float *mean;
@@ -141,7 +140,7 @@ struct normalize_params {
 	int spatial;
 };
 
-void normalize_cpu_thread(struct normalize_params *params, size_t batch, size_t filters)
+void normalize_cpu_thread(struct normalize_params *params, uint32_t batch, uint32_t filters)
 {
 	int i;
 	float div = sqrt(params->variance[filters]) + .000001f;
@@ -169,8 +168,7 @@ void forward_batchnorm_layer(layer l, network net)
         normalize_cpu(l.output, l.mean, l.variance, l.batch, l.out_c, l.out_h*l.out_w);   
         copy_cpu(l.outputs*l.batch, l.output, 1, l.x_norm, 1);
     } else {
-//#ifdef NNPACK
-#if 0
+#ifdef NNPACK
 		struct normalize_params params = { l.output, l.rolling_mean, l.rolling_variance, l.out_h*l.out_w };
 		pthreadpool_compute_2d(net.threadpool, (pthreadpool_function_2d_t)normalize_cpu_thread,
 			&params, l.batch, l.out_c);

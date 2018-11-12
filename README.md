@@ -44,7 +44,7 @@ The weight files can be downloaded from the [YOLO homepage](https://pjreddie.com
 YOLOv2
 ./darknet detector test cfg/coco.data cfg/yolov2.cfg yolov2.weights data/person.jpg
 YOLOv2-tiny
-./darknet detector test cfg/voc.data cfg/yolov2-tiny-voc.cfg yolov2-tiny-voc.weights data/person.jpg
+./darknet detector test cfg/coco.data cfg/yolov2-tiny.cfg yolov2-tiny.weights data/person.jpg
 YOLOv3-tiny
 ./darknet detector test cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights data/person.jpg
 ```

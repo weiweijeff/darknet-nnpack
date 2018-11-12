@@ -105,15 +105,14 @@ void activate_array(float *x, const int n, const ACTIVATION a)
     }
 }
 
-//#ifdef NNPACK
-#if 0
+#ifdef NNPACK
 struct activate_params {
 	float *x;
 	int n;
 	ACTIVATION a;
 };
 
-void activate_array_compute(struct activate_params *params, size_t c)
+void activate_array_compute(struct activate_params *params, uint32_t c)
 {
 	int i;
 	for (i = 0; i < params->n; i++) {

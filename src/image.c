@@ -809,8 +809,7 @@ void letterbox_image_into(image im, int w, int h, image boxed)
     free_image(resized);
 }
 
-//#ifdef NNPACK
-#if 0
+#ifdef NNPACK
 struct resize_image_params {
 	image im;
 	image resized;
@@ -819,7 +818,7 @@ struct resize_image_params {
 	int h;
 };
 
-void resize_image_compute_w(struct resize_image_params *params, size_t k, size_t r)
+void resize_image_compute_w(struct resize_image_params *params, uint32_t k, uint32_t r)
 {
 	int c;
 	float w_scale = (float)(params->im.w - 1) / (params->w - 1);
@@ -838,7 +837,7 @@ void resize_image_compute_w(struct resize_image_params *params, size_t k, size_t
 	}
 }
 
-void resize_image_compute_h(struct resize_image_params *params, size_t k, size_t r)
+void resize_image_compute_h(struct resize_image_params *params, uint32_t k, uint32_t r)
 {
 	int c;
 	float h_scale = (float)(params->im.h - 1) / (params->h - 1);
@@ -1373,8 +1372,7 @@ void test_resize(char *filename)
 #endif
 }
 
-//#ifdef NNPACK
-#if 0
+#ifdef NNPACK
 struct load_image_params {
 	image im;
 	unsigned char *data;
@@ -1383,7 +1381,7 @@ struct load_image_params {
 	int c;
 };
 
-void load_image_compute(struct load_image_params *params, size_t k, size_t j)
+void load_image_compute(struct load_image_params *params, uint32_t k, uint32_t j)
 {
 	int i;
 	for(i = 0; i < params->w; ++i){
@@ -1452,8 +1450,7 @@ image load_image(char *filename, int w, int h, int c)
     return out;
 }
 
-//#ifdef NNPACK
-#if 0
+#ifdef NNPACK
 image load_image_thread(char *filename, int w, int h, int c, pthreadpool_t threadpool)
 {
 	return load_image_stb_thread(filename, c, threadpool);
