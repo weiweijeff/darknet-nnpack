@@ -112,7 +112,7 @@ struct activate_params {
 	ACTIVATION a;
 };
 
-void activate_array_compute(struct activate_params *params, uint32_t c)
+void activate_array_compute(struct activate_params *params, size_t c)
 {
 	int i;
 	for (i = 0; i < params->n; i++) {

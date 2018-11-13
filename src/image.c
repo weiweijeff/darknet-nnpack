@@ -818,7 +818,7 @@ struct resize_image_params {
 	int h;
 };
 
-void resize_image_compute_w(struct resize_image_params *params, uint32_t k, uint32_t r)
+void resize_image_compute_w(struct resize_image_params *params, size_t k, size_t r)
 {
 	int c;
 	float w_scale = (float)(params->im.w - 1) / (params->w - 1);
@@ -837,7 +837,7 @@ void resize_image_compute_w(struct resize_image_params *params, uint32_t k, uint
 	}
 }
 
-void resize_image_compute_h(struct resize_image_params *params, uint32_t k, uint32_t r)
+void resize_image_compute_h(struct resize_image_params *params, size_t k, size_t r)
 {
 	int c;
 	float h_scale = (float)(params->im.h - 1) / (params->h - 1);
@@ -1381,7 +1381,7 @@ struct load_image_params {
 	int c;
 };
 
-void load_image_compute(struct load_image_params *params, uint32_t k, uint32_t j)
+void load_image_compute(struct load_image_params *params, size_t k, size_t j)
 {
 	int i;
 	for(i = 0; i < params->w; ++i){

@@ -140,7 +140,7 @@ struct normalize_params {
 	int spatial;
 };
 
-void normalize_cpu_thread(struct normalize_params *params, uint32_t batch, uint32_t filters)
+void normalize_cpu_thread(struct normalize_params *params, size_t batch, size_t filters)
 {
 	int i;
 	float div = sqrt(params->variance[filters]) + .000001f;

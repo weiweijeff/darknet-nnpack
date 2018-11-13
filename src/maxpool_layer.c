@@ -83,7 +83,7 @@ struct maxpool_params {
 	network *net;
 };
 
-void maxpool_thread(struct maxpool_params *params, uint32_t b, uint32_t k)
+void maxpool_thread(struct maxpool_params *params, size_t b, size_t k)
 {
 	int i, j, m, n;
 	int w_offset = -params->l->pad;

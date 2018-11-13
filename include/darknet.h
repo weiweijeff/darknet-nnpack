@@ -8,8 +8,6 @@
 #include <nnpack.h>
 #endif
 
-#define size_t int64_t
-
 #ifdef GPU
     #define BLOCK 512
 
