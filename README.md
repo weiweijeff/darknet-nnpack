@@ -51,7 +51,7 @@ YOLOv3-tiny
 ## Result
 Model | Build Options | Prediction Time (seconds)
 :-:|:-:|:-:
-YOLOv2 | NNPACK=1,ARM_NEON=1 | 8.2
-YOLOv2 | NNPACK=0,ARM_NEON=0 | 156
-YOLOv2-tiny | NNPACK=1,ARM_NEON=1 | 1.3
-YOLOv2-tiny | NNPACK=0,ARM_NEON=0 | 38
+YOLOv2-tiny | NNPACK=1,ARM_NEON=1 | 1.8
+YOLOv2-tiny | NNPACK=0,ARM_NEON=0 | 31
+YOLOv3-tiny | NNPACK=1,ARM_NEON=1 | 2.0
+YOLOv3-tiny | NNPACK=0,ARM_NEON=0 | 32
