@@ -41,8 +41,6 @@ make
 ## Test
 The weight files can be downloaded from the [YOLO homepage](https://pjreddie.com/darknet/yolo/).
 ```
-YOLOv2
-./darknet detector test cfg/coco.data cfg/yolov2.cfg yolov2.weights data/person.jpg
 YOLOv2-tiny
 ./darknet detector test cfg/coco.data cfg/yolov2-tiny.cfg yolov2-tiny.weights data/person.jpg
 YOLOv3-tiny
