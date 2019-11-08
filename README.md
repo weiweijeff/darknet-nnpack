@@ -1,7 +1,7 @@
 # Darknet with NNPACK
 NNPACK was used to optimize [Darknet](https://github.com/pjreddie/darknet) without using a GPU. It is useful for embedded devices using ARM CPUs.
 
-## Build from Raspberry Pi 3
+## Build from Raspberry Pi
 Log in to Raspberry Pi using SSH.<br/>
 Install [PeachPy](https://github.com/Maratyszcza/PeachPy) and [confu](https://github.com/Maratyszcza/confu)
 ```
@@ -47,9 +47,10 @@ YOLOv3-tiny
 ./darknet detector test cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights data/person.jpg
 ```
 ## Result
-Model | Build Options | Prediction Time (seconds)
-:-:|:-:|:-:
-YOLOv2-tiny | NNPACK=1,ARM_NEON=1 | 1.8
-YOLOv2-tiny | NNPACK=0,ARM_NEON=0 | 31
-YOLOv3-tiny | NNPACK=1,ARM_NEON=1 | 2.0
-YOLOv3-tiny | NNPACK=0,ARM_NEON=0 | 32
+Device | Model | Build Options | Prediction Time (seconds)
+:-:|:-:|:-:|:-:
+Raspberry Pi 3 | YOLOv2-tiny | NNPACK=1,ARM_NEON=1 | 1.8
+Raspberry Pi 3 | YOLOv2-tiny | NNPACK=0,ARM_NEON=0 | 31
+Raspberry Pi 3 | YOLOv3-tiny | NNPACK=1,ARM_NEON=1 | 2.0
+Raspberry Pi 3 | YOLOv3-tiny | NNPACK=0,ARM_NEON=0 | 32
+Raspberry Pi 4 | YOLOv3-tiny | NNPACK=1,ARM_NEON=1 | 1.4
