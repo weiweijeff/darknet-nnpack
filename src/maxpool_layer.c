@@ -240,6 +240,59 @@ void resize_maxpool_layer(maxpool_layer *l, int w, int h)
 #endif
 }
 
+#ifdef NNPACK
+struct maxpool_params {
+    const maxpool_layer *l;
+    network_state *state;
+};
+
+void maxpool_thread(struct maxpool_params *params, size_t b, size_t k)
+{
+    const int w_offset = -params->l->pad / 2;
+    const int h_offset = -params->l->pad / 2;
+
+    int i, j, m, n;
+    for (i = 0; i < params->l->out_h; ++i) {
+        for (j = 0; j < params->l->out_w; ++j) {
+            int out_index = j + params->l->out_w*(i + params->l->out_h*(k + params->l->c*b));
+            float max = -FLT_MAX;
+            int max_i = -1;
+            for (n = 0; n < params->l->size; ++n) {
+                for (m = 0; m < params->l->size; ++m) {
+                    int cur_h = h_offset + i*params->l->stride + n;
+                    int cur_w = w_offset + j*params->l->stride + m;
+                    int index = cur_w + params->l->w*(cur_h + params->l->h*(k + b*params->l->c));
+                    int valid = (cur_h >= 0 && cur_h < params->l->h &&
+                        cur_w >= 0 && cur_w < params->l->w);
+                    float val = (valid != 0) ? params->state->input[index] : -FLT_MAX;
+                    max_i = (val > max) ? index : max_i;
+                    max = (val > max) ? val : max;
+                }
+            }
+            params->l->output[out_index] = max;
+            if (params->l->indexes) params->l->indexes[out_index] = max_i;
+        }
+    }
+}
+
+void forward_maxpool_layer(const maxpool_layer l, network_state state)
+{
+    struct maxpool_params params = { &l, &state };
+        pthreadpool_compute_2d(state.net.threadpool, (pthreadpool_function_2d_t)maxpool_thread,
+            &params, l.batch, l.c);
+
+    if (l.antialiasing) {
+        network_state s = { 0 };
+        s.train = state.train;
+        s.workspace = state.workspace;
+        s.net = state.net;
+        s.input = l.output;
+        forward_convolutional_layer(*(l.input_layer), s);
+        //simple_copy_ongpu(l.outputs*l.batch, l.output, l.input_antialiasing);
+        memcpy(l.output, l.input_layer->output, l.input_layer->outputs * l.input_layer->batch * sizeof(float));
+    }
+}
+#else
 void forward_maxpool_layer(const maxpool_layer l, network_state state)
 {
     if (l.maxpool_depth)
@@ -325,6 +378,7 @@ void forward_maxpool_layer(const maxpool_layer l, network_state state)
         memcpy(l.output, l.input_layer->output, l.input_layer->outputs * l.input_layer->batch * sizeof(float));
     }
 }
+#endif
 
 void backward_maxpool_layer(const maxpool_layer l, network_state state)
 {
