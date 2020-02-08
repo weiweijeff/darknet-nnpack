@@ -1483,6 +1483,11 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
     }
     int j;
     float nms = .45;    // 0.4F
+#ifdef NNPACK
+    nnp_initialize();
+    net.threadpool = pthreadpool_create(4);
+#endif
+
     while (1) {
         if (filename) {
             strncpy(input, filename, 256);
@@ -1601,6 +1606,10 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
     free(alphabet);
 
     free_network(net);
+#ifdef NNPACK
+    pthreadpool_destroy(net.threadpool);
+    nnp_deinitialize();
+#endif
 }
 
 void run_detector(int argc, char **argv)

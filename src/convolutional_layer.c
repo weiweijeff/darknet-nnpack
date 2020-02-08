@@ -1067,7 +1067,73 @@ size_t binary_transpose_align_input(int k, int n, float *b, char **t_bit_input, 
     return t_intput_size;
 }
 
+#ifdef NNPACK
+void forward_convolutional_layer(convolutional_layer l, network_state state)
+{
+    struct nnp_size input_size = { l.w, l.h };
+    struct nnp_padding input_padding = { l.pad, l.pad, l.pad, l.pad };
+    struct nnp_size kernel_size = { l.size, l.size };
+    struct nnp_size stride = { l.stride, l.stride };
 
+    nnp_convolution_inference(
+        nnp_convolution_algorithm_implicit_gemm,
+        nnp_convolution_transform_strategy_tuple_based,
+        l.c,
+        l.n,
+        input_size,
+        input_padding,
+        kernel_size,
+        stride,
+        state.input,
+        l.weights,
+        NULL,
+        l.output,
+        NULL,
+        NULL,
+        nnp_activation_identity,
+        NULL,
+        state.net.threadpool,
+        NULL
+    );
+
+    int out_h = convolutional_out_height(l);
+    int out_w = convolutional_out_width(l);
+    int n = out_h*out_w;
+
+    if(l.batch_normalize){
+        forward_batchnorm_layer(l, state);
+    }
+    else {
+        add_bias(l.output, l.biases, l.batch, l.n, out_h*out_w);
+    }
+
+    //activate_array(l.output, m*n*l.batch, l.activation);
+    if (l.activation == SWISH) activate_array_swish(l.output, l.outputs*l.batch, l.activation_input, l.output);
+    else if (l.activation == MISH) activate_array_mish(l.output, l.outputs*l.batch, l.activation_input, l.output);
+    else if (l.activation == NORM_CHAN) activate_array_normalize_channels(l.output, l.outputs*l.batch, l.batch, l.out_c, l.out_w*l.out_h, l.output);
+    else if (l.activation == NORM_CHAN_SOFTMAX) activate_array_normalize_channels_softmax(l.output, l.outputs*l.batch, l.batch, l.out_c, l.out_w*l.out_h, l.output, 0);
+    else if (l.activation == NORM_CHAN_SOFTMAX_MAXVAL) activate_array_normalize_channels_softmax(l.output, l.outputs*l.batch, l.batch, l.out_c, l.out_w*l.out_h, l.output, 1);
+    else activate_array_cpu_custom(l.output, l.outputs*l.batch, l.activation);
+
+    if(l.binary || l.xnor) swap_binary(&l);
+
+    //visualize_convolutional_layer(l, "conv_visual", NULL);
+    //wait_until_press_key_cv();
+
+    if(l.assisted_excitation && state.train) assisted_excitation_forward(l, state);
+
+    if (l.antialiasing) {
+        network_state s = { 0 };
+        s.train = state.train;
+        s.workspace = state.workspace;
+        s.net = state.net;
+        s.input = l.output;
+        forward_convolutional_layer(*(l.input_layer), s);
+        //simple_copy_ongpu(l.outputs*l.batch, l.output, l.input_antialiasing);
+        memcpy(l.output, l.input_layer->output, l.input_layer->outputs * l.input_layer->batch * sizeof(float));
+    }
+}
+#else
 void forward_convolutional_layer(convolutional_layer l, network_state state)
 {
     int out_h = convolutional_out_height(l);
@@ -1286,6 +1352,7 @@ void forward_convolutional_layer(convolutional_layer l, network_state state)
         memcpy(l.output, l.input_layer->output, l.input_layer->outputs * l.input_layer->batch * sizeof(float));
     }
 }
+#endif
 
 void assisted_excitation_forward(convolutional_layer l, network_state state)
 {
