@@ -1075,30 +1075,36 @@ void forward_convolutional_layer(convolutional_layer l, network_state state)
     struct nnp_size kernel_size = { l.size, l.size };
     struct nnp_size stride = { l.stride, l.stride };
 
-    nnp_convolution_inference(
-        nnp_convolution_algorithm_implicit_gemm,
-        nnp_convolution_transform_strategy_tuple_based,
-        l.c,
-        l.n,
-        input_size,
-        input_padding,
-        kernel_size,
-        stride,
-        state.input,
-        l.weights,
-        NULL,
-        l.output,
-        NULL,
-        NULL,
-        nnp_activation_identity,
-        NULL,
-        state.net.threadpool,
-        NULL
-    );
-
     int out_h = convolutional_out_height(l);
     int out_w = convolutional_out_width(l);
+    int m = l.n / l.groups;
     int n = out_h*out_w;
+
+    for (int j = 0; j < l.groups; ++j)
+    {
+        float *im = state.input + j*(l.c / l.groups)*l.h*l.w;
+
+        nnp_convolution_inference(
+            nnp_convolution_algorithm_implicit_gemm,
+            nnp_convolution_transform_strategy_tuple_based,
+            (size_t)(l.c / l.groups),
+            (size_t)m,
+            input_size,
+            input_padding,
+            kernel_size,
+            stride,
+            im,
+            l.weights +j*l.nweights / l.groups,
+            NULL,
+            l.output + j*n*m,
+            NULL,
+            NULL,
+            nnp_activation_identity,
+            NULL,
+            state.net.threadpool,
+            NULL
+        );
+    }
 
     if(l.batch_normalize){
         forward_batchnorm_layer(l, state);
