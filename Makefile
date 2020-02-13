@@ -130,6 +130,7 @@ LDFLAGS+= -L/usr/local/zed/lib -lsl_core -lsl_input -lsl_zed
 endif
 
 ifeq ($(NNPACK), 1)
+CFLAGS+= -DNNPACK
 LDFLAGS+= -lnnpack -lpthreadpool
 endif
 
