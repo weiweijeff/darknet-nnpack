@@ -49,7 +49,7 @@ Pascal VOC
 ./darknet detector test cfg/voc.data [cfg file] [weights file] [image path]
 ```
 ## Result
-##### COCO
+#### COCO
 cfg | Build Options | mAP | Prediction Time (seconds)
 :-:|:-:|:-:|:-:
 yolov3-tiny.cfg | NNPACK=1 | 33.1 | 1.1
@@ -57,7 +57,7 @@ yolov3-tiny.cfg | NNPACK=0 | | 14.5
 yolov3-tiny-prn.cfg | NNPACK=1 | 33.1 | 0.86
 yolov3-tiny-prn.cfg | NNPACK=0 | | 9.3
 
-##### Pascal VOC
+#### Pascal VOC
 cfg | Build Options | mAP | Prediction Time (seconds) | Weights file
 :-:|:-:|:-:|:-:|:-:
 yolov3-tiny-voc.cfg | NNPACK=1 | 65.99 | 1.0 | [yolov3-tiny-voc.weights](https://drive.google.com/open?id=1gP531RumQnuGlMUUcQgymktatWajF4mH)
