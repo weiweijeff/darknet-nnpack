@@ -39,19 +39,29 @@ make
 ```
 
 ## Test
-The weight files can be downloaded from the [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet).
+The weights files can be downloaded from the [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet).
 ```
-YOLOv3-tiny
-./darknet detector test cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights data/person.jpg
+COCO
+./darknet detector test cfg/coco.data [cfg file] [weights file] [image path]
 ```
 ```
-YOLOv3-tiny-prn
-./darknet detector test cfg/coco.data cfg/yolov3-tiny-prn.cfg yolov3-tiny-prn.weights data/person.jpg
+Pascal VOC
+./darknet detector test cfg/voc.data [cfg file] [weights file] [image path]
 ```
 ## Result
-Model | Build Options | Prediction Time (seconds)
+##### COCO
+cfg | Build Options | mAP | Prediction Time (seconds)
 :-:|:-:|:-:
-YOLOv3-tiny | NNPACK=1 | 1.1
-YOLOv3-tiny | NNPACK=0 | 14.5
-YOLOv3-tiny-prn | NNPACK=1 | 0.86
-YOLOv3-tiny-prn | NNPACK=0 | 9.3
+yolov3-tiny.cfg | NNPACK=1 | 33.1 | 1.1
+yolov3-tiny.cfg | NNPACK=0 | | 14.5
+yolov3-tiny-prn.cfg | NNPACK=1 | 33.1 | 0.86
+yolov3-tiny-prn.cfg | NNPACK=0 | | 9.3
+
+##### Pascal VOC
+cfg | Build Options | mAP | Prediction Time (seconds) | Weights file
+:-:|:-:|:-:
+yolov3-tiny-voc.cfg | NNPACK=1 | 65.99 | 1.0 | [yolov3-tiny-voc.weights](https://drive.google.com/open?id=1gP531RumQnuGlMUUcQgymktatWajF4mH)
+yolov3-tiny-voc.cfg | NNPACK=0 | | 14.0 | 
+yolov3-tiny-prn-voc.cfg | NNPACK=1 | 65.23 | 0.77 | [yolov3-tiny-prn-voc.weights](https://drive.google.com/open?id=1NljMzqeFxu0Kr04iftjc-zSL0Nxkns1n)
+yolov3-tiny-prn-voc.cfg | NNPACK=0 | | 8.9 | 
+Gaussian_yolov3-tiny-voc.cfg | NNPACK=1 | 65.69 | 1.0 | [Gaussian_yolov3-tiny-voc.weights](https://drive.google.com/open?id=1qHdCsYsyvPX37pNoYpoug-FUUtu_1HxM)
