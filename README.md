@@ -39,7 +39,7 @@ make
 ```
 
 ## Test
-The weights files can be downloaded from the [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet).
+COCO trained weights files can be downloaded from the [AlexeyAB/darknet](https://github.com/AlexeyAB/darknet).
 ```
 COCO
 ./darknet detector test cfg/coco.data [cfg file] [weights file] [image path]
