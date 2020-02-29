@@ -60,8 +60,8 @@ yolov3-tiny-prn.cfg | NNPACK=0 | | 9.3
 #### Pascal VOC
 cfg | Build Options | mAP | Prediction Time (seconds) | Weights file
 :-:|:-:|:-:|:-:|:-:
-yolov3-tiny-voc.cfg | NNPACK=1 | 65.99 | 1.0 | [yolov3-tiny-voc.weights](https://drive.google.com/open?id=1gP531RumQnuGlMUUcQgymktatWajF4mH)
+yolov3-tiny-voc.cfg | NNPACK=1 | 65.9 | 1.0 | [yolov3-tiny-voc.weights](https://drive.google.com/open?id=1gP531RumQnuGlMUUcQgymktatWajF4mH)
 yolov3-tiny-voc.cfg | NNPACK=0 | | 14.0 | 
-yolov3-tiny-prn-voc.cfg | NNPACK=1 | 65.23 | 0.77 | [yolov3-tiny-prn-voc.weights](https://drive.google.com/open?id=1NljMzqeFxu0Kr04iftjc-zSL0Nxkns1n)
+yolov3-tiny-prn-voc.cfg | NNPACK=1 | 65.2 | 0.77 | [yolov3-tiny-prn-voc.weights](https://drive.google.com/open?id=1NljMzqeFxu0Kr04iftjc-zSL0Nxkns1n)
 yolov3-tiny-prn-voc.cfg | NNPACK=0 | | 8.9 | 
-Gaussian_yolov3-tiny-voc.cfg | NNPACK=1 | 65.69 | 1.0 | [Gaussian_yolov3-tiny-voc.weights](https://drive.google.com/open?id=1qHdCsYsyvPX37pNoYpoug-FUUtu_1HxM)
+Gaussian_yolov3-tiny-voc.cfg | NNPACK=1 | 65.7 | 1.0 | [Gaussian_yolov3-tiny-voc.weights](https://drive.google.com/open?id=1qHdCsYsyvPX37pNoYpoug-FUUtu_1HxM)
