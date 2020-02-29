@@ -48,7 +48,7 @@ COCO
 Pascal VOC
 ./darknet detector test cfg/voc.data [cfg file] [weights file] [image path]
 ```
-## Result
+## Results
 #### COCO
 cfg | Build Options | mAP | Prediction Time (seconds)
 :-:|:-:|:-:|:-:
